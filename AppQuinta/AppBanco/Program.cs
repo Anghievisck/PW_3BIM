@@ -11,22 +11,42 @@ namespace AppBanco{
             MySqlConnection Conexao = new MySqlConnection(@"Server = Localhost; database = dbAppBanco; user = root; password = 12345678");
             Conexao.Open();
 
+            Console.WriteLine("Digite o Nome:");
+            string strNomeUser = Console.ReadLine();
 
-            string strInsert = "Insert into tbUsuario(NomeUser, Cargo, DataNasc) values ('Enildo', 'Professor', '1978/07/21')";
-            string strSelect = "Select * from tbUsuario";
+            Console.WriteLine("Digite o Cargo:");
+            string strCargo = Console.ReadLine();
 
+            Console.WriteLine("Informe a data de Nascimento");
+            string strDataNasc = Console.ReadLine();
+
+            string strInsert = string.Format("Insert into tbUsuario(NomeUSer, Cargo,DataNasc)" +
+                " values ('{0}', '{1}', STR_TO_DATE('{2}', '%d/%m/%Y'));", strNomeUser, strCargo, strDataNasc);
             MySqlCommand InsertCommand = new MySqlCommand(strInsert, Conexao);
             InsertCommand.ExecuteNonQuery();
 
-//          Pode inserir o comando e conexão como parametros
+
+            string strDelete = "Delete from tbUsuario where IdUser = 3";
+            MySqlCommand CommandD = new MySqlCommand(strDelete, Conexao);
+            CommandD.ExecuteNonQuery();
+
+
+            string strSelect = "Select * from tbUsuario";
+            //          Pode inserir o comando e conexão como parametros
             MySqlCommand ObjCommand = new MySqlCommand(strSelect, Conexao);
 
-//          ObjCommand.CommandText = "Select * from tbUsuario";
-//          ObjCommand.Connection = Conexao;
+            //          ObjCommand.CommandText = "Select * from tbUsuario";
+            //          ObjCommand.Connection = Conexao;
 
-//          Quando o CommandType é omitido, o padrão é Text
-//          ObjCommand.CommandType = System.Data.CommandType.Text;
+            //          Quando o CommandType é omitido, o padrão é Text
+            //          ObjCommand.CommandType = System.Data.CommandType.Text;
 
+
+            string strUpdate = "Update tbUsuario set NomeUser = 'João' where IdUser = 4;";
+            MySqlCommand CommandU = new MySqlCommand(strUpdate, Conexao);
+            CommandU.ExecuteNonQuery();
+
+            
             MySqlDataReader Leitor = ObjCommand.ExecuteReader();
 
             while(Leitor.Read()){
