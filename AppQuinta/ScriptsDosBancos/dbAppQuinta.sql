@@ -1,3 +1,4 @@
+drop database dbAppBanco;
 create database dbAppBanco;
 use dbAppBanco;
 
@@ -9,7 +10,7 @@ create table tbUsuario(
 );
 
 insert into tbUsuario(NomeUser, Cargo, DataNasc)
-values ('Polianna', 'Representante', '2005/08/18'),
+values ('Rafaella', 'Lider do TCC', '2005/08/18'),
 	   ('Pedro', 'Aluno', '2006/01/20');
        
 select * from tbUsuario;
