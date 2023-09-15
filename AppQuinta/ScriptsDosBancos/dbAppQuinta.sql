@@ -11,6 +11,7 @@ create table tbUsuario(
 
 insert into tbUsuario(NomeUser, Cargo, DataNasc)
 values ('Rafaella', 'Lider do TCC', '2005/08/18'),
-	   ('Pedro', 'Aluno', '2006/01/20');
+	   ('Pedro', 'Aluno', '2006/01/20'),
+       ('Terceiro', 'Ser apagado', '2000/01/01');
        
 select * from tbUsuario;
