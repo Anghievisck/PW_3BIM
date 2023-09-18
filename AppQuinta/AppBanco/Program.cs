@@ -1,4 +1,6 @@
 ﻿using System;
+using BDAO;
+using BModel;
 
 namespace AppBanco
 {
@@ -13,38 +15,39 @@ namespace AppBanco
             // Banco db = new Banco();
             
             UsuarioDAO ObjDao = new UsuarioDAO();
-            
+            Usuario ObjUsuario = new Usuario();
+
             Console.Write("Informe Id para identificação: ");
-            strIdUser = Console.ReadLine();
-            Console.WriteLine("Olá senhor(a): " + ObjDao.SelectDado(strIdUser));
-            Console.WriteLine();
+            ObjUsuario.IdUser = int.Parse(Console.ReadLine());
+
+            Console.Clear();
+            Console.Write("Olá senhor(a): " + ObjDao.SelectDado(ObjUsuario.IdUser));
 
             /*
             MySqlConnection Conexao = new MySqlConnection(@"Server = Localhost; database = dbAppBanco; user = root; password = 12345678");
             Conexao.Open();
             */
-
+            Console.WriteLine("\n Vamos inserir um novo registro");
             Console.Write("Digite o Nome: ");
-            strNomeUser = Console.ReadLine();
+            ObjUsuario.NomeUser = Console.ReadLine();
 
             Console.Write("Digite o Cargo: ");
-            strCargo = Console.ReadLine();
+            ObjUsuario.Cargo = Console.ReadLine();
 
             Console.Write("Informe a data de Nascimento: ");
-            strDataNasc = Console.ReadLine();
+            ObjUsuario.DataNasc = DateTime.Parse(Console.ReadLine());
 
-            ObjDao.Insert(strNomeUser, strCargo, strDataNasc);
-            Console.WriteLine();
+            ObjDao.Insert(ObjUsuario);
             
-            ObjDao.Delete("3");
-
+            Console.WriteLine("\n");
             ObjDao.Select("*");
-            Console.WriteLine();
 
-            Console.Write("Informe Id para ser deletado: ");
-            strIdUser = Console.ReadLine();
-            ObjDao.Delete(strIdUser);
-            Console.WriteLine();
+            Console.Write("\n Informe Id para ser deletado: ");
+            ObjUsuario.IdUser = int.Parse(Console.ReadLine());
+            ObjDao.Delete(ObjUsuario.IdUser);
+            Console.Clear();
+            ObjDao.Select("*");
+
 
             /*
             string strSelectId = "Select NomeUser from tbUsuario where IdUser = " + strIdUser + ";";
@@ -52,20 +55,22 @@ namespace AppBanco
             Console.WriteLine("Olá senhor(a) " + strDado);
             */
 
+            Console.WriteLine("\n Vamos atualizar um registro");
             Console.Write("Digite o Id do usuário a ser atualizado: ");
-            strIdUser = Console.ReadLine();
+            ObjUsuario.IdUser = int.Parse(Console.ReadLine());
 
             Console.Write("Digite o novo Nome: ");
-            strNomeUser = Console.ReadLine();
+            ObjUsuario.NomeUser = Console.ReadLine();
 
             Console.Write("Digite o novo Cargo: ");
-            strCargo = Console.ReadLine();
+            ObjUsuario.Cargo = Console.ReadLine();
 
             Console.Write("Informe a nova data de Nascimento: ");
-            strDataNasc = Console.ReadLine();
+            ObjUsuario.DataNasc = DateTime.Parse(Console.ReadLine());
 
-            ObjDao.Update(strIdUser, strNomeUser, strCargo, strDataNasc);
+            ObjDao.Update(ObjUsuario);
             Console.WriteLine();
+
 
             ObjDao.Select("*");
             Console.ReadLine();

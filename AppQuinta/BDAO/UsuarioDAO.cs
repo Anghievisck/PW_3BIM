@@ -1,13 +1,18 @@
-﻿using MySql.Data.MySqlClient;
+﻿using BBanco;
+using BModel;
+using MySql.Data.MySqlClient;
 using System;
 
-namespace AppBanco
-{
-    class UsuarioDAO{
+namespace BDAO{
+    public class UsuarioDAO{
         Banco db = new Banco();
-        public void Insert(string strNomeUser, string strCargo, string strDataNasc) {
+
+        Usuario ObjUsuario = new Usuario();
+
+
+        public void Insert(Usuario ObjUsuario) {
             string strInsert = string.Format("Insert into tbUsuario(NomeUser, Cargo, DataNasc) " + 
-                "values ('{0}', '{1}', STR_TO_DATE('{2}', '%d/%m/%Y'));", strNomeUser, strCargo, strDataNasc);
+                "values ('{0}', '{1}', STR_TO_DATE('{2}', '%d/%m/%Y 00:00:00'));", ObjUsuario.NomeUser, ObjUsuario.Cargo, ObjUsuario.DataNasc);
             
             db.Open();
             
@@ -16,29 +21,30 @@ namespace AppBanco
             db.Close();
         }
 
-        public void Update(string strIdUser, string strNomeUser, string strCargo, string strDataNasc){
+        public void Update(Usuario ObjUsuario)
+        {
             db.Open();
             
-            string strUpdate = string.Format("Update tbUsuario set NomeUser = '{0}', Cargo = '{1}', DataNasc = STR_TO_DATE('{2}', '%d/%m/%Y') " +
-                "where IdUser = {3};", strNomeUser, strCargo, strDataNasc, strIdUser);
+            string strUpdate = string.Format("Update tbUsuario set NomeUser = '{0}', Cargo = '{1}', DataNasc = STR_TO_DATE('{2}', '%d/%m/%Y 00:00:00') " +
+                "where IdUser = {3};", ObjUsuario.NomeUser, ObjUsuario.Cargo, ObjUsuario.DataNasc, ObjUsuario.IdUser);
             
             db.ExecuteNowSql(strUpdate);
             
             db.Close();
         }
 
-        public void Delete(string strIdUser) {
+        public void Delete(int Id) {
             db.Open();
             
-            string strDelete = string.Format("Delete from tbUsuario where IdUser = {0};", strIdUser);
+            string strDelete = string.Format("Delete from tbUsuario where IdUser = {0};", Id);
             
             db.ExecuteNowSql(strDelete);
             
             db.Close();
         }
 
-        public string SelectDado(string strIdUser) {
-            string strDado = "Select NomeUser from tbUsuario where IdUser = " + strIdUser + ";";
+        public string SelectDado(int Id) {
+            string strDado = "Select NomeUser from tbUsuario where IdUser = " + Id + ";";
             
             db.Open();
             

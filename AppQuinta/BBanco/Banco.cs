@@ -1,12 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Configuration;
-using System.Data;
 
-namespace AppBanco
-{
-    internal class Banco
-    {
+namespace BBanco{
+    public class Banco{
         private readonly MySqlConnection conexao = new MySqlConnection(ConfigurationManager.ConnectionStrings["conexao"].ConnectionString);
         private readonly MySqlCommand cmd = new MySqlCommand();
 
